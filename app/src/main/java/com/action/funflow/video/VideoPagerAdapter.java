@@ -1,6 +1,8 @@
-package com.action.funflow;
+package com.action.funflow.video;
 
 import android.content.Context;
+
+import com.action.funflow.R;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

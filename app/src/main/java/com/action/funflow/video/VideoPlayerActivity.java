@@ -1,6 +1,8 @@
-package com.action.funflow;
+package com.action.funflow.video;
 
 import android.os.Bundle;
+
+import com.action.funflow.R;
 import android.view.View;
 import android.view.WindowManager;
 

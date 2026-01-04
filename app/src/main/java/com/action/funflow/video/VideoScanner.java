@@ -1,4 +1,4 @@
-package com.action.funflow;
+package com.action.funflow.video;
 
 import android.content.Context;
 import android.database.Cursor;

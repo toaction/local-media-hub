@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F5F5F5"
-    tools:context=".video.VideoListActivity">
+    tools:context=".picture.PictureListActivity">
 
     <!-- RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/videoRecyclerView"
+        android:id="@+id/pictureRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="4dp"

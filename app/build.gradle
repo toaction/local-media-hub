@@ -9,7 +9,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.example.funflow"
+        applicationId "com.action.funflow"
         minSdk 26
         targetSdk 36
         versionCode 1

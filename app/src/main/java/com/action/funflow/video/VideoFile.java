@@ -1,4 +1,4 @@
-package com.action.funflow;
+package com.action.funflow.video;
 
 import android.net.Uri;
 import android.os.Parcel;

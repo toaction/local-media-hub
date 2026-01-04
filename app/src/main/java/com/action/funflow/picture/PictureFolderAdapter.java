@@ -1,6 +1,7 @@
-package com.action.funflow;
+package com.action.funflow.picture;
 
 import android.content.Context;
+
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
@@ -11,11 +12,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.action.funflow.R;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
@@ -24,12 +27,12 @@ import com.bumptech.glide.request.target.Target;
 
 import java.util.List;
 
-public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.FolderViewHolder> {
+public class PictureFolderAdapter extends RecyclerView.Adapter<PictureFolderAdapter.FolderViewHolder> {
 
     private final Context context;
-    private final List<VideoScanner.FolderInfo> folders;
+    private final List<PictureScanner.FolderInfo> folders;
 
-    public FolderAdapter(Context context, List<VideoScanner.FolderInfo> folders) {
+    public PictureFolderAdapter(Context context, List<PictureScanner.FolderInfo> folders) {
         this.context = context;
         this.folders = folders;
     }
@@ -43,45 +46,44 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.FolderView
 
     @Override
     public void onBindViewHolder(@NonNull FolderViewHolder holder, int position) {
-        VideoScanner.FolderInfo folder = folders.get(position);
+        PictureScanner.FolderInfo folder = folders.get(position);
         holder.folderNameTextView.setText(folder.folderName);
-        holder.videoInfoTextView.setText(folder.videoCount + " videos");
-        holder.videoCountBadgeTextView.setText(String.valueOf(folder.videoCount));
+        holder.videoInfoTextView.setText(folder.pictureCount + " pictures");
+        holder.videoCountBadgeTextView.setText(String.valueOf(folder.pictureCount));
 
         // Reset folder icon visibility
         holder.folderIconImageView.setVisibility(View.VISIBLE);
 
-        // Load first video thumbnail
-        if (!folder.videos.isEmpty()) {
-            VideoFile firstVideo = folder.videos.get(0);
-            loadVideoThumbnail(firstVideo.getFilePath(), holder.thumbnailImageView, holder.folderIconImageView);
+        // Load first picture thumbnail
+        if (!folder.pictures.isEmpty()) {
+            PictureFile firstPicture = folder.pictures.get(0);
+            loadPictureThumbnail(firstPicture.getFilePath(), holder.thumbnailImageView, holder.folderIconImageView);
         }
 
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, VideoListActivity.class);
-            intent.putParcelableArrayListExtra(VideoListActivity.EXTRA_VIDEOS, new java.util.ArrayList<>(folder.videos));
-            intent.putExtra(VideoListActivity.EXTRA_FOLDER_NAME, folder.folderName);
+            Intent intent = new Intent(context, PictureListActivity.class);
+            intent.putParcelableArrayListExtra(PictureListActivity.EXTRA_PICTURES, new java.util.ArrayList<>(folder.pictures));
+            intent.putExtra(PictureListActivity.EXTRA_FOLDER_NAME, folder.folderName);
             context.startActivity(intent);
         });
     }
 
-    private void loadVideoThumbnail(String videoPath, ImageView imageView, ImageView folderIcon) {
+    private void loadPictureThumbnail(String picturePath, ImageView imageView, ImageView folderIcon) {
         try {
             Cursor cursor = context.getContentResolver().query(
-                    MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
-                    new String[]{MediaStore.Video.Media._ID},
-                    MediaStore.Video.Media.DATA + "=?",
-                    new String[]{videoPath},
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                    new String[]{MediaStore.Images.Media._ID},
+                    MediaStore.Images.Media.DATA + "=?",
+                    new String[]{picturePath},
                     null
             );
 
             if (cursor != null && cursor.moveToFirst()) {
-                long id = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Video.Media._ID));
-                Uri uri = Uri.withAppendedPath(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, String.valueOf(id));
+                long id = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID));
+                Uri uri = Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, String.valueOf(id));
 
                 Glide.with(context)
                         .load(uri)
-                        .frame(1000000) // Extract frame at 1 second
                         .centerCrop()
                         .placeholder(android.R.color.darker_gray)
                         .listener(new RequestListener<Drawable>() {

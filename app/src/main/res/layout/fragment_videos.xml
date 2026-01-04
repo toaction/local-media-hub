@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F5F5F5"
-    tools:context=".video.VideoListActivity">
+    tools:context=".video.VideosFragment">
 
-    <!-- RecyclerView -->
+    <!-- RecyclerView for video folders -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/videoRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="4dp"
         android:clipToPadding="false" />
+
+    <!-- Empty State View -->
+    <include
+        android:id="@+id/emptyStateLayout"
+        layout="@layout/empty_state"
+        android:visibility="gone" />
 
 </FrameLayout>

@@ -1,6 +1,8 @@
-package com.action.funflow;
+package com.action.funflow.picture;
 
 import android.os.Bundle;
+
+import com.action.funflow.R;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,21 +14,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class VideoListActivity extends AppCompatActivity {
+public class PictureListActivity extends AppCompatActivity {
 
-    public static final String EXTRA_VIDEOS = "videos";
+    public static final String EXTRA_PICTURES = "pictures";
     public static final String EXTRA_FOLDER_NAME = "folder_name";
 
-    private RecyclerView videoRecyclerView;
-    private VideoListAdapter videoAdapter;
-    private ArrayList<VideoFile> videos;
+    private RecyclerView pictureRecyclerView;
+    private PictureListAdapter pictureAdapter;
+    private ArrayList<PictureFile> pictures;
     private String folderName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_video_list);
+        setContentView(R.layout.activity_picture_list);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -34,10 +36,10 @@ public class VideoListActivity extends AppCompatActivity {
         });
 
         // Get data from intent
-        videos = getIntent().getParcelableArrayListExtra(EXTRA_VIDEOS);
+        pictures = getIntent().getParcelableArrayListExtra(EXTRA_PICTURES);
         folderName = getIntent().getStringExtra(EXTRA_FOLDER_NAME);
 
-        if (videos == null || videos.isEmpty()) {
+        if (pictures == null || pictures.isEmpty()) {
             finish();
             return;
         }
@@ -52,11 +54,11 @@ public class VideoListActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        videoRecyclerView = findViewById(R.id.videoRecyclerView);
-        videoRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        pictureRecyclerView = findViewById(R.id.pictureRecyclerView);
+        pictureRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-        videoAdapter = new VideoListAdapter(this, videos);
-        videoRecyclerView.setAdapter(videoAdapter);
+        pictureAdapter = new PictureListAdapter(this, pictures);
+        pictureRecyclerView.setAdapter(pictureAdapter);
     }
 
     @Override

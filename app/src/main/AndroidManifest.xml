@@ -2,8 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Permissions for accessing video files -->
+    <!-- Permissions for accessing media files -->
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
 
@@ -28,12 +29,23 @@
         </activity>
 
         <activity
-            android:name=".VideoListActivity"
+            android:name=".video.VideoListActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity" />
 
         <activity
-            android:name=".VideoPlayerActivity"
+            android:name=".video.VideoPlayerActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+
+        <activity
+            android:name=".picture.PictureListActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+
+        <activity
+            android:name=".picture.PicturePlayerActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize|keyboardHidden" />
